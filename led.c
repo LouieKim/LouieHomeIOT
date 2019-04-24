@@ -22,9 +22,9 @@ int main(void){
         while(1){
         	if(digitalRead(BT_PIN))
         	{
-        		digitalWrite(PIN_NUM,1); // pin 27, input 1, light ON
+        		digitalWrite(LED_PIN,1); // pin 27, input 1, light ON
             delay(500); // Delay 0.5 sec
-            digitalWrite(PIN_NUM,0); // light OFF
+            digitalWrite(LED_PIN,0); // light OFF
             delay(500); // Delay 0.5 sec
         	}
         }
