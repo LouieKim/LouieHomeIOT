@@ -6,7 +6,6 @@
  
 int main(void){
         
- 
         // wiringPi setup
         if(wiringPiSetup() == -1){
                 return -1;
