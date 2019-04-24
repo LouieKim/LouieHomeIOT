@@ -20,7 +20,7 @@ int main(void){
  
         // LED toggle
         while(1){
-        	if(digitalRead(BT_PIN))
+        	if(!(digitalRead(BT_PIN)))
         	{
         		digitalWrite(LED_PIN,1); // pin 27, input 1, light ON
             delay(500); // Delay 0.5 sec
