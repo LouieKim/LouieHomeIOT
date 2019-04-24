@@ -1,9 +1,10 @@
 #include <stdio.h>
 #include <wiringPi.h>
-#define PIN_NUM 27 // pin number
+
+#define LED_PIN 27 // pin number
+#define BT_PIN 0
  
 int main(void){
- 
         
  
         // wiringPi setup
@@ -12,15 +13,20 @@ int main(void){
         }
  
         // pin = 27
-        pinMode(PIN_NUM, OUTPUT);
+        pinMode(LED_PIN, OUTPUT);
+        pinMode(BT_PIN, INPUT);
+        
+        pullUpDnControl(BT_PIN, PUD_UP);
  
         // LED toggle
         while(1){
-                digitalWrite(PIN_NUM,1); // pin 27, input 1, light ON
-                delay(500); // Delay 0.5 sec
-                digitalWrite(PIN_NUM,0); // light OFF
-                delay(500); // Delay 0.5 sec
+        	if(digitalRead(BT_PIN))
+        	{
+        		digitalWrite(PIN_NUM,1); // pin 27, input 1, light ON
+            delay(500); // Delay 0.5 sec
+            digitalWrite(PIN_NUM,0); // light OFF
+            delay(500); // Delay 0.5 sec
+        	}
         }
- 
         return 0;
 }
