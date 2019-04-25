@@ -23,7 +23,7 @@ int main()
 	shmid = shmget((key_t)SHARED_MEMORY_KEY, MEMORY_SIZE, 0666 | IPC_CREAT);
 	if(shmid == -1)
 	{
-		perror("shmat failed: ");
+		perror("shmget failed: ");
 		exit(0);
 	}
 	

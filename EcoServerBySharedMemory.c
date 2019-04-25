@@ -24,7 +24,7 @@ int main()
 	
 	if(shmid == -1)
 	{
-		perror("shmat failed: ");
+		perror("shmget failed: ");
 		exit(0);
 	}
 	
