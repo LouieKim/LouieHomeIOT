@@ -38,7 +38,7 @@ void *t_function(void *data)
 	}
 }
 
-void *t_buffer(void)
+void *t_buffer()
 {
 	int shmid;
 	shmid = SHM_create();
@@ -84,11 +84,11 @@ int main()
 	
 	sleep(1);
 	
-	thr_id = pthread_create(&p_thread[0], NULL, t_buffer);
+	thr_id = pthread_create(&p_thread[0], NULL, t_buffer, NULL);
 	
 	if(thr_id < 0)
 	{
-		perror("thread create error: ");
+		perror("thread create error:1 ");
 		exit(0);
 	}
 	
