@@ -29,7 +29,7 @@ int main()
 	}
 	
 	//attach shared memory
-	buffer = shmat(shmid, NULL, 0);
+	buffer = shmat(shmid, (void *)0, 0);
 	
 	if(buffer == -1)
 	{
