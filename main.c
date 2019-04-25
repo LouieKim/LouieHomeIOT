@@ -69,9 +69,9 @@ void *t_buffer()
 	}
 }
 
-void test()
+void test1()
 {
-	printf("test");
+	printf("tasfasft1");
 }
 
 int main()
