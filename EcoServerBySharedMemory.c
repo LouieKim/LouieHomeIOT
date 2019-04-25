@@ -31,7 +31,7 @@ int main()
 	//attach shared memory
 	buffer = shmat(shmid, (void *)0, 0);
 	
-	if(buffer == -1)
+	if(buffer == (void *)-1)
 	{
 		perror("shmat failed:");
 		exit(0);
@@ -44,7 +44,7 @@ int main()
 	{
 		if(buffer[0] == READ_SERVER_FLAG)
 		{
-			puts(sting);
+			puts(string);
 			strcat(string, "by server");
 			buffer[0] = PRINT_CLIENT_FLAG;
 		}
