@@ -20,6 +20,7 @@ void signal_handler(int signo)
 
 void *t_function(void *data)
 {
+	printf("Test");
 	pid_t pid;
 	pthread_t tid;
 	
@@ -71,7 +72,7 @@ void *t_buffer()
 int main()
 {
 	signal(SIGINT, signal_handler);
-	
+	printf("\n");	
 
 	pthread_t p_thread[2];
 	
