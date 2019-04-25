@@ -21,7 +21,7 @@ char device[]= "/dev/ttyACM0";
 // filedescriptor
 int fd;
 unsigned long baud = 9600;
-unsigned long time=0;
+//unsigned long time=0;
 
 void signal_handler(int signo)
 {
@@ -102,6 +102,7 @@ void setup(){
  
 void loop()
 {
+	/*
   // Pong every 3 seconds
   if(millis()-time>=3000){
     serialPuts (fd, "Pong!\n");
@@ -109,7 +110,7 @@ void loop()
     // 65 is in ASCII 'A'
     serialPutchar (fd, 65);
     time=millis();
-  }
+  }*/
  
   // read signal
   if(serialDataAvail (fd)){
