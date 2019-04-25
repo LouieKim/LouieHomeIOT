@@ -83,7 +83,7 @@ int main()
 	
 	sleep(1);
 	
-	thr_id = pthread_create(&p_thread[0], NULL, t_buffer(buffer, string), (void*)p1);
+	thr_id = pthread_create(&p_thread[0], NULL, t_buffer, buffer, string);
 	
 	if(thr_id < 0)
 	{
