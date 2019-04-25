@@ -48,6 +48,7 @@ void *t_buffer(char *buffer, char *string)
 			strcat(string, "by server");
 			buffer[0] = PRINT_CLIENT_FLAG;
 		}
+		printf("wait data\n");
 		sleep(1);
 	}
 }
