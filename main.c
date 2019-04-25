@@ -38,8 +38,11 @@ void *t_function(void *data)
 	}
 }
 
-void *t_buffer(void shmid)
+void *t_buffer(void)
 {
+	int shmid;
+	shmid = SHM_create();
+	
 	char *buffer;
 	char *string;
 	
@@ -69,8 +72,6 @@ int main()
 {
 	signal(SIGINT, signal_handler);
 	
-	int shmid;
-	shmid = SHM_create();
 
 	pthread_t p_thread[2];
 	
@@ -83,7 +84,7 @@ int main()
 	
 	sleep(1);
 	
-	thr_id = pthread_create(&p_thread[0], NULL, t_buffer, (void)shmid);
+	thr_id = pthread_create(&p_thread[0], NULL, t_buffer);
 	
 	if(thr_id < 0)
 	{
