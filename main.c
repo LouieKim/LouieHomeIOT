@@ -78,6 +78,7 @@ int main()
 {
 	signal(SIGINT, signal_handler);
 	printf("\n");	
+	printf("\n");
 
 	pthread_t p_thread[2];
 	
