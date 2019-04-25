@@ -81,12 +81,6 @@ void *t_buffer()
 	}
 }
 
-void *t_usb_comm()
-{
-	setup();
-  while(1) loop();
-}
-
 void setup(){
  
   printf("%s \n", "Raspberry Startup!");
@@ -124,6 +118,12 @@ void loop()
     fflush(stdout);
   }
  
+}
+
+void *t_usb_comm()
+{
+	setup();
+  while(1) loop();
 }
 
 int main()
