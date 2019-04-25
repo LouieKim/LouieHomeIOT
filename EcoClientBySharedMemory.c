@@ -6,7 +6,7 @@
 #include <unistd.h>
 #include <time.h>
 
-#define SHARED_MEMORY_KEY 1234
+#define SHARED_MEMORY_KEY 1111
 #define MEMORY_SIZE 1024
 
 #define READ_CLIENT_FLAG 0
