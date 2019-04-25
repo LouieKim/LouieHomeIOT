@@ -4,12 +4,24 @@
 #include <unistd.h>
 #include <signal.h>
 #include <string.h>
+#include <errno.h> //error output
+#include <stdint.h> //uint8_t definitions
+
+//wiring Pi
+#include <wiringPi.h>
+#include <wiringSerial.h>
 
 #include "SharedMemory.h"
 
 #define READ_CLIENT_FLAG 0
 #define READ_SERVER_FLAG 1
 #define PRINT_CLIENT_FLAG 2
+
+char device[]= "/dev/ttyACM0";
+// filedescriptor
+int fd;
+unsigned long baud = 9600;
+unsigned long time=0;
 
 void signal_handler(int signo)
 {
@@ -69,20 +81,56 @@ void *t_buffer()
 	}
 }
 
-void test1()
+void *t_usb_comm()
 {
+	setup();
+  while(1) loop();
+}
 
-	printf("test2");
-
+void setup(){
+ 
+  printf("%s \n", "Raspberry Startup!");
+  fflush(stdout);
+ 
+  //get filedescriptor
+  if ((fd = serialOpen (device, baud)) < 0){
+    fprintf (stderr, "Unable to open serial device: %s\n", strerror (errno)) ;
+    exit(1); //error
+  }
+ 
+  //setup GPIO in wiringPi mode
+  if (wiringPiSetup () == -1){
+    fprintf (stdout, "Unable to start wiringPi: %s\n", strerror (errno)) ;
+    exit(1); //error
+  }
+ 
+}
+ 
+void loop()
+{
+  // Pong every 3 seconds
+  if(millis()-time>=3000){
+    serialPuts (fd, "Pong!\n");
+    // you can also write data from 0-255
+    // 65 is in ASCII 'A'
+    serialPutchar (fd, 65);
+    time=millis();
+  }
+ 
+  // read signal
+  if(serialDataAvail (fd)){
+    char newChar = serialGetchar (fd);
+    printf("%c", newChar);
+    fflush(stdout);
+  }
+ 
 }
 
 int main()
 {
 	signal(SIGINT, signal_handler);
-	printf("\n");	
-	printf("\n");
 
-	pthread_t p_thread[2];
+	pthread_t p_thread[3];
 	
 	int thr_id;
 	int status;
@@ -101,7 +149,15 @@ int main()
 		exit(0);
 	}
 	
-	thr_id = pthread_create(&p_thread[1], NULL, t_function, (void*)p2);
+	thr_id = pthread_create(&p_thread[1], NULL, t_usb_comm, NULL);
+	
+	if(thr_id < 0)
+	{
+		perror("thread create error: ");
+		exit(0);
+	}
+	
+	thr_id = pthread_create(&p_thread[2], NULL, t_function, (void*)p2);
 	
 	if(thr_id < 0)
 	{
@@ -113,6 +169,7 @@ int main()
 	
 	pthread_join(p_thread[0], (void **)&status);
 	pthread_join(p_thread[1], (void **)&status);
+	pthread_join(p_thread[2], (void **)&status);
 	
 	printf("when terminal\n");
 	

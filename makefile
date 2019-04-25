@@ -1,6 +1,6 @@
 CC = gcc
 TARGET = main
-LDFLAGS = -pthread
+LDFLAGS = -pthread -lwiringPi
 
 OBJS = main.o SharedMemory.o
 main : $(OBJS)
