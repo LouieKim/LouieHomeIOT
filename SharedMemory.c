@@ -1,9 +1,9 @@
 #include "SharedMemory.h"
 
+int shmid;
+
 int SHM_create()
 {
-	int shmid;
-	
 	shmid = shmget((key_t)SHARED_MEMORY_KEY, MEMORY_SIZE, 0666|IPC_CREAT);
 	
 	if(shmid == -1)
@@ -15,7 +15,7 @@ int SHM_create()
 	return shmid;
 }
 
-int SHM_delete(int shmid)
+int SHM_delete()
 {
 	if(shmctl(shmid, IPC_RMID, 0) == -1)
 	{

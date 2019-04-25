@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <signal.h>
+#include <string.h>
 
 #include "SharedMemory.h"
 
@@ -37,7 +38,7 @@ void *t_function(void *data)
 	}
 }
 
-void *read_buffer(char *buffer, char *string)
+void *t_buffer(char *buffer, char *string)
 {
 	while(1)
 	{
@@ -81,7 +82,7 @@ int main()
 	
 	sleep(1);
 	
-	thr_id = pthread_create(&p_thread[0], NULL, read_buffer, (void*)p1);
+	thr_id = pthread_create(&p_thread[0], NULL, t_buffer, (void*)p1);
 	
 	if(thr_id < 0)
 	{
