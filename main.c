@@ -69,9 +69,11 @@ void *t_buffer()
 	}
 }
 
-void test()
+void test1()
 {
+
 	printf("test2");
+
 }
 
 int main()
