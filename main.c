@@ -71,7 +71,7 @@ void *t_buffer()
 
 void test()
 {
-	printf("test");
+	printf("test2");
 }
 
 int main()
