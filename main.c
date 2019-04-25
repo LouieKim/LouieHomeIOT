@@ -68,7 +68,12 @@ void *t_buffer()
 		sleep(1);
 	}
 }
-	
+
+void test()
+{
+	printf("test");
+}
+
 int main()
 {
 	signal(SIGINT, signal_handler);
