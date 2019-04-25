@@ -38,8 +38,20 @@ void *t_function(void *data)
 	}
 }
 
-void *t_buffer(char *buffer, char *string)
+void *t_buffer(void shmid)
 {
+	char *buffer;
+	char *string;
+	
+	buffer = shmat(shmid, (void *)0, 0);
+	if(buffer == (void *)-1)
+	{
+		perror("shmat failed: ");
+	}
+	
+	buffer[0] = READ_CLIENT_FLAG;
+	string = buffer + 1;	
+	
 	while(1)
 	{
 		if(buffer[0] == READ_SERVER_FLAG)
@@ -59,19 +71,7 @@ int main()
 	
 	int shmid;
 	shmid = SHM_create();
-	
-	char *buffer;
-	char *string;
-	
-	buffer = shmat(shmid, (void *)0, 0);
-	if(buffer == (void *)-1)
-	{
-		perror("shmat failed: ");
-	}
-	
-	buffer[0] = READ_CLIENT_FLAG;
-	string = buffer + 1;	
-	
+
 	pthread_t p_thread[2];
 	
 	int thr_id;
@@ -83,7 +83,7 @@ int main()
 	
 	sleep(1);
 	
-	thr_id = pthread_create(&p_thread[0], NULL, t_buffer, buffer, string);
+	thr_id = pthread_create(&p_thread[0], NULL, t_buffer, (void)shmid);
 	
 	if(thr_id < 0)
 	{
