@@ -3,7 +3,7 @@
 #include <sys/shm.h>
 #include <sys/wait.h>
 #include <string.h>
-#include <unitd.h>
+#include <unistd.h>
 #include <time.h>
 
 #define SHARED_MEMORY_KEY 1234
